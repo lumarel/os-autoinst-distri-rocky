@@ -11,9 +11,11 @@ sub run {
     # install time. if UPGRADE, we have to wait for the entire upgrade
     # unless ENCRYPT_PASSWORD is set (in which case the postinstall
     # test does the waiting)
+    # It looks like network installs through the boot-iso also take longer
     my $wait_time = 300;
     $wait_time = 1800 if (get_var("KICKSTART"));
     $wait_time = 6000 if (get_var("UPGRADE") && !get_var("ENCRYPT_PASSWORD"));
+    $wait_time = 1000 if (get_var("FLAVOR") eq 'boot-iso');
 
     # handle bootloader, if requested
     if (get_var("GRUB_POSTINSTALL")) {
