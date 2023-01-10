@@ -9,15 +9,15 @@ use utils;
 sub run {
     my $self=shift;
     # use FreeIPA server or replica as DNS server
-    my $server = 'ipa001.test.openqa.fedoraproject.org';
+    my $server = 'ipa001.openqa.testing.rockylinux.org';
     my $server_ip = '172.16.2.100';
     my $server_mutex = 'freeipa_ready';
     if (get_var("FREEIPA_REPLICA")) {
-        $server = 'ipa002.test.openqa.fedoraproject.org';
+        $server = 'ipa002.openqa.testing.rockylinux.org';
         $server_ip = '172.16.2.106';
     }
     if (get_var("FREEIPA_REPLICA_CLIENT")) {
-        $server = 'ipa003.test.openqa.fedoraproject.org';
+        $server = 'ipa003.openqa.testing.rockylinux.org';
         $server_ip = '172.16.2.107';
         $server_mutex = 'replica_ready';
     }
@@ -55,7 +55,7 @@ sub run {
 
         # deploy as a replica
         my ($ip, $hostname) = split(/ /, get_var("POST_STATIC"));
-        my $args = "--ip-address=$ip --setup-dns --auto-forwarders --setup-ca --allow-zone-overlap -U --principal admin --admin-password monkeys123";
+        my $args = "--ip-address=$ip --setup-dns --auto-forwarders --setup-ca --allow-zone-overlap -U --principal admin --admin-password b1U3OnyX!";
         assert_script_run "ipa-replica-install $args", 1500;
 
         # enable and start the systemd service
@@ -69,7 +69,7 @@ sub run {
         wait_for_children;
     }
     else {
-        assert_script_run "echo 'monkeys123' | realm join --user=admin ${server}", 300;
+        assert_script_run "echo 'b1U3OnyX!' | realm join --user=admin ${server}", 300;
     }
     # set sssd debugging level higher (useful for debugging failures)
     # optional as it's not really part of the test
