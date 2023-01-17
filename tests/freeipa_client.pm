@@ -8,8 +8,8 @@ sub run {
     # switch to tty1 (we're usually there already, but just in case
     # we're carrying on from a failed freeipa_webui that didn't fail
     # at tty1)
-    my $ipa_domain = 'openqa.testing.rockylinux.org'
-    my $ipa_realm  = 'OPENQA.TESTING.ROCKYLINUX.ORG'
+    my $ipa_domain = 'test.openqa.rockylinux.org'
+    my $ipa_realm  = 'TEST.OPENQA.ROCKYLINUX.ORG'
     send_key "ctrl-alt-f1";
     wait_still_screen 1;
     # check domain is listed in 'realm list'
@@ -27,7 +27,7 @@ sub run {
     # switch to tty2 for login tests
     send_key "ctrl-alt-f2";
     # try and login as test1, should work
-    console_login(user=>'test1@OPENQA.TESTING.ROCKYLINUX.ORG', password=>'batterystaple');
+    console_login(user=>'test1@TEST.OPENQA.ROCKYLINUX.ORG', password=>'batterystaple');
     type_string "exit\n";
     # try and login as test2, should fail. we cannot use console_login
     # as it takes 10 seconds to complete when login fails, and

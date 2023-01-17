@@ -9,7 +9,7 @@ sub run {
     # we're restarting firefox (instead of using the same one from
     # realmd_join_cockpit) so Firefox's trusted CA store refreshes and
     # it trusts the web server cert
-    my $ipa_realm  = 'OPENQA.TESTING.ROCKYLINUX.ORG'
+    my $ipa_realm  = 'TEST.OPENQA.ROCKYLINUX.ORG'
     my $ipa_admin_passwd = 'b1U3OnyX!'
     start_webui("admin", $ipa_admin_password);
     add_user("test3", "Three");
@@ -55,14 +55,14 @@ sub run {
     # switch to tty4 (boy, the tty jugglin')
     send_key "ctrl-alt-f4";
     # try and login as test3, should work
-    console_login(user=>'test3@OPENQA.TESTING.ROCKYLINUX.ORG', password=>'batterystaple');
+    console_login(user=>'test3@TEST.OPENQA.ROCKYLINUX.ORG', password=>'batterystaple');
     type_string "exit\n";
     # try and login as test4, should fail. we cannot use console_login
     # as it takes 10 seconds to complete when login fails, and
     # "permission denied" message doesn't last that long
     sleep 2;
     assert_screen "text_console_login";
-    type_string "test4\@OPENQA.TESTING.ROCKYLINUX.ORG\n";
+    type_string "test4\@TEST.OPENQA.ROCKYLINUX.ORG\n";
     assert_screen "console_password_required";
     type_string "batterystaple\n";
     assert_screen "login_permission_denied";

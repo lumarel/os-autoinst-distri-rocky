@@ -12,7 +12,7 @@ sub run {
     my $version_major = get_version_major;
     my $relnum = get_release_number;
     my $ipa_admin_passwd = 'b1U3OnyX!'
-    my $server = 'ipa001.openqa.testing.rockylinux.org';
+    my $server = 'ipa001.test.openqa.rockylinux.org';
     my $server_ip = '172.16.2.100';
     my $server_mutex = 'freeipa_ready';
     given($version_major){
@@ -32,11 +32,11 @@ sub run {
 
 
     if (get_var("FREEIPA_REPLICA")) {
-        $server = 'ipa002.openqa.testing.rockylinux.org';
+        $server = 'ipa002.test.openqa.rockylinux.org';
         $server_ip = '172.16.2.106';
     }
     if (get_var("FREEIPA_REPLICA_CLIENT")) {
-        $server = 'ipa003.openqa.testing.rockylinux.org';
+        $server = 'ipa003.test.openqa.rockylinux.org';
         $server_ip = '172.16.2.107';
         $server_mutex = 'replica_ready';
     }
