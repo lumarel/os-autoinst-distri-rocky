@@ -13,13 +13,13 @@ sub run {
     send_key "ctrl-alt-f1";
     wait_still_screen 1;
     # check domain is listed in 'realm list'
-    validate_script_output 'realm list', sub { $_ =~ m/domain-name: openqa\.testing\.rockylinux\.org.*configured: kerberos-member/s };
+    validate_script_output 'realm list', sub { $_ =~ m/domain-name: test\.openqa\.rockylinux\.org.*configured: kerberos-member/s };
     # check we can see the admin user in getent
     assert_script_run "getent passwd admin\@$ipa_realm";
     # check keytab entries
     my $hostname = script_output 'hostname';
     my $qhost = quotemeta($hostname);
-    validate_script_output 'klist -k', sub { $_ =~ m/$qhost\@OPENQA\.TESTING\.ROCKYLINUX\.ORG/ };
+    validate_script_output 'klist -k', sub { $_ =~ m/$qhost\@TEST\.OPENQA\.ROCKYLINUX\.ORG/ };
     # check we can kinit with the host principal
     assert_script_run "kinit -k host/$hostname\@$ipa_realm";
     # Set a longer timeout for login(1) to workaround RHBZ #1661273
